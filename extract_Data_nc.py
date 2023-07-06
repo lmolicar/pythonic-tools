@@ -25,5 +25,7 @@ def extract_values_xr_dataarray(da, points):
     # Convert to a Pandas DataFrame for easy export to other formats.
     labels = [f"Point{nn+1}" for nn in range(len(points))]
     res_df = pd.DataFrame(res.values, columns = labels)
+    time_df = pd.DataFrame({"time" : dataarray.time.dt.strftime("%Y-%m-%d")})
+    res_df = pd.concat([time_df, res_df], axis = 1)
     
     return res_df
